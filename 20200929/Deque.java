@@ -1,7 +1,5 @@
 package impl.stack;
 
-import org.omg.PortableInterceptor.INACTIVE;
-
 import java.util.NoSuchElementException;
 
 public interface Deque extends Queue {
@@ -9,7 +7,7 @@ public interface Deque extends Queue {
     /**
      * 注意Queue 和 Deque是接口，里面是不能有具体的方法实现的
      * 因为LinkedLlist 这个类实现了这个接口，所以在
-     * 在类里面重写这些方法 然后猜可以用
+     * 在类里面重写这些方法 然后可以用
      * 而现在只是模拟了接口里面有什么
      * 因为没有写实现类
      * 所以这些方法并不能用的
@@ -18,10 +16,9 @@ public interface Deque extends Queue {
      */
     //下面这组方法通过抛出异常
 
-    boolean addFirst();
     default  void addFirst(Integer e) {
         if(offerFirst(e) == false) {
-            throw new IllegalStateException()
+            throw new IllegalStateException();
         }
     }
 
@@ -32,11 +29,12 @@ public interface Deque extends Queue {
         }
     }
 
-    default void removeFirst() {
-        Integer e = poolFirst();
+    default Integer removeFirst() {
+        Integer e = pollFirst();
         if(e == null) {
-            throw new NoSuchElementException()
+            throw new NoSuchElementException();
         }
+        return e;
     }
     default  void addLast(Integer e) {
         if(offerLast(e) == false) {
@@ -63,7 +61,7 @@ public interface Deque extends Queue {
 
     boolean offerFirst(Integer e);
     Integer peekFirst();
-    Integer poolFirst();
+    Integer pollFirst();
 
     boolean offerLast(Integer e);
     Integer peekLast();
@@ -79,10 +77,15 @@ public interface Deque extends Queue {
         return peekFirst();
     }
     default  Integer poll() {
-        return poolFirst();
+        return pollFirst();
     }
 
+    // 下面这组方法为栈的形态准备，还包括上面的 peek 方法
+    default void push(Integer e) {
+        addFirst(e);
+    }
 
+    default Integer pop() { return removeFirst(); }
 
 
 }

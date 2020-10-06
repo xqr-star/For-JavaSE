@@ -10,7 +10,7 @@ public interface Queue {
 
     //插入永远返回true
     default  boolean add(Integer e) {
-        if(offer() == false) {
+        if(offer(e) == false) {
             throw new IllegalStateException();
         }
         return true;
@@ -18,7 +18,7 @@ public interface Queue {
 
     //查看队首不删除
     default  Integer element() {
-        Integer e = element();
+        Integer e = peek();
         if(e == null) {
             throw new NoSuchElementException();
         }
@@ -38,7 +38,7 @@ public interface Queue {
 
     //通过特殊的返回值
 
-    boolean offer() ; // true 成功 false 失败
+    boolean offer(Integer e) ; // true 成功 false 失败
 
     //查看不删除
     Integer peek();   //返回null 代表队列是空的
