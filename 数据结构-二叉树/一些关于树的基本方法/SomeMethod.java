@@ -118,42 +118,81 @@ public class SomeMethod {
 //        return a>b?a:b;
 //    }
 
-    public static boolean contains1(TreeNode root,char v) {
-        if(root == null) {
+    public static boolean contains1(TreeNode root, char v) {
+        if (root == null) {
             return false;
-        }else if(root.v == v) {
+        } else if (root.v == v) {
             //跟里面找到了就return true
             //没必要去左右子树再去找
             return true;
-        }else {
+        } else {
             //跟里面没找到
-             boolean b = contains1(root.left,v);
-             if(b == true) {
-                 //左子树里面找到
-                 return true;
-             }else {
-                 //左子树里面也没找到，去右子树里面找
+            boolean b = contains1(root.left, v);
+            if (b == true) {
+                //左子树里面找到
+                return true;
+            } else {
+                //左子树里面也没找到，去右子树里面找
                 return contains1(root.right, v);
-             }
+            }
         }
 
     }
 
-    public static boolean contains2(TreeNode root,char v) {
-        if(root == null) {
+    public static boolean contains2(TreeNode root, char v) {
+        if (root == null) {
             return false;
         }
         //什么都不写也等同于else
-        if(root.v == v) {
+        if (root.v == v) {
             return true;
         }
         //跟里面没找到
-        boolean left = contains2(root.left,v);
-        if(left) {
+        boolean left = contains2(root.left, v);
+        if (left) {
             //左子树里面找到
             return true;
         }
         //左子树里面也没找到，去右子树里面找
         return contains2(root.right, v);
+    }
+
+    //更改返回值
+    //返回值 在树中找到了返回结点
+    //没有找到返回Null
+
+    public static TreeNode contains3(TreeNode root, char v) {
+        //这里的root 代表的是以root 为根节点的一颗子树
+        if (root == null) {
+            return null;
+        }
+        if (root.v == v) {
+            return root;
+            //这里的root 仅仅代表一个结点
+        }
+        TreeNode node = contains3(root.left,v);
+        if(node != null) {
+            return node;
+        }
+        return contains3(root.right,v);
+    }
+
+    //返回node 是不是以root 为根的二叉树上的一个结点
+    //就比如我也有一个结点a 虽然这个结点和我要找的结点的值相等
+    //但是它所在的树的根节点不是我要找的\
+    //空树里面查找也是返回false
+    public static Boolean contains4(TreeNode root, TreeNode node) {
+        if(root == null) {
+            return false;
+        }
+        if(root == node) {
+            return true;
+        }
+        boolean leftContains = contains4(root.left,node);
+        if(leftContains) {
+            return true;
+        }
+        return contains4(root.right,node);
+
     }
 }
