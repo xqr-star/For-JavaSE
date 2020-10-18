@@ -50,10 +50,7 @@ public class Solution {
             }
         }
     }
-
-
-
-
+    
     public static void levelOrderWithLevel2(TreeNode root) {
 
         //搞上两个队列 -- 一个放结点一个放层级 然后一起出来就好了
@@ -67,19 +64,21 @@ public class Solution {
         while (!nodeQueue.isEmpty() && ! levelQueue.isEmpty()) {
             TreeNode node = nodeQueue.remove();
             //让两个一起出队列
-            System.out.print(levelQueue.remove());
+            int level2 = levelQueue.remove();
+            System.out.print(level2);
             System.out.println(node);
+
             //一旦有left 或者 right 就让这个level++
-            if(node.left!=null || node.right!=null) {
-                level++;
-            }
+//            if(node.left!=null || node.right!=null) {
+//                level++;
+//            }
             if(node.left != null) {
                 nodeQueue.add(node.left);
-                levelQueue.add(level);
+                levelQueue.add(level2+1);
             }
             if(node.right != null) {
                 nodeQueue.add(node.right);
-                levelQueue.add(level);
+                levelQueue.add(level2+1);
             }
         }
 
